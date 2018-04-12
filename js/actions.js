@@ -1,7 +1,7 @@
 var app = {
 
 	deviceready: function(){
-		document.addEventListener("deviceready", fn.init/*this.init*/, false);
+		document.addEventListener("deviceready", app.init/*this.init*/, false);
 	},
     init: function() {
         alert('Received Device Ready Event');
@@ -81,4 +81,4 @@ var app = {
        });
     }
 };
-fn.deviceready();
+app.deviceready();
