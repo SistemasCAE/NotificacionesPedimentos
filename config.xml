@@ -40,8 +40,6 @@
 		</gap:config-file>
 		
 		<!--Plugin de notificaciones --> 
-		<gap:plugin name="com.phonegap.plugins.pushplugin"/> 
-		<access origin="*" />
 	
 	
         <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
