@@ -1,15 +1,11 @@
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
 
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    onDeviceReady: function() {
-        console.log('Received Device Ready Event');
-        console.log('calling setup push');
+	deviceready: function(){
+		document.addEventListener("deviceready", fn.init/*this.init*/, false);
+	},
+    init: function() {
+        alert('Received Device Ready Event');
+        alert('calling setup push');
         plataforma=device.platform;
         var element = document.getElementById('deviceProperties');
 
@@ -20,7 +16,7 @@ var app = {
 
     },
     setupPush: function() {
-        console.log('calling push init');
+        alert('calling push init');
         var push = PushNotification.init({
             "android": {
                 "senderID": "prueba-notificaciones-200822"
@@ -33,10 +29,10 @@ var app = {
             },
             "windows": {}
         });
-        console.log('after init');
+        alert('after init');
 
         push.on('registration', function(data) {
-            console.log('registration event: ' + data.registrationId);
+            alert('registration event: ' + data.registrationId);
 
                  jQuery.ajax({
         url: 'http://enlinea.cae3076.com/Notificaciones/funciones.php',
@@ -66,14 +62,14 @@ var app = {
         });
 
         push.on('error', function(e) {
-            console.log("push error = " + e.message);
+            alert("push error = " + e.message);
             
       alert("push error = " + e.message);
 
         });
 
         push.on('notification', function(data) {
-            console.log('notification event');
+            alert('notification event');
 
     cordova.plugins.notification.badge.set(0);
             navigator.notification.alert(
@@ -85,3 +81,4 @@ var app = {
        });
     }
 };
+fn.deviceready();
