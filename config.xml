@@ -38,7 +38,10 @@
        	<gap:config-file platform="ios" parent="NSCameraUsageDescription" overwrite="true">
    			<string></string>
 		</gap:config-file>
-
+		<!--Plugin de notificaciones --> 
+		<gap:plugin name="com.phonegap.plugins.pushplugin"/> 
+		<access origin="*" />
+	
         <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
 	    <gap:plugin name="cordova-plugin-network-information" source="npm"/>
         <gap:plugin name="cordova-plugin-x-toast" source="npm" />
