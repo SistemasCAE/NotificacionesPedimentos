@@ -1,32 +1,53 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Pedimentos Pagados</title>
-		<!--<meta name="viewport" content="width=device-width, user-scalable=no">
-		<meta name="viewport" content="width=300, initial-scale=1">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1">-->
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <meta charset="utf-8" /> 
+        <meta name="format-detection" content="telephone=no" /> 
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /> 
+        <link rel="stylesheet" type="text/css" href="css/index.css" /> 
+        <title>Hello World</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.inline-png-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css">
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
-	</head>
-	<body>
-		<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-		<script>
-		  // Initialize Firebase
-		  var config = {
-			apiKey: "AIzaSyBjfT9QbOdTVDq4-2AgHl4fox8VrqkDpys",
-			authDomain: "proyectoprueba-a3f81.firebaseapp.com",
-			databaseURL: "https://proyectoprueba-a3f81.firebaseio.com",
-			projectId: "proyectoprueba-a3f81",
-			storageBucket: "proyectoprueba-a3f81.appspot.com",
-			messagingSenderId: "1099037378452"
-		  };
-		  firebase.initializeApp(config);
-		</script>
-		
+    </head> 
+    <body> 
+        <div class="app"> 
+            <h1>PhoneGap</h1> 
+            <form id="formulario" name="formulario" method="post" action="PHPServer/registro.php"> 
+                <p><input type="text" id="name" name="name" placeholder="Nombre" required></p> 
+                <p><input type="text" id="email" name="email" placeholder="Correo" required></p> 
+                <p><input type="text" name="regId" id="regId" readonly="readonly" placeholder="regId"></p> 
+                <button type="button" onclick="registrar();">Registar</button> 
+            </form>   
+
+            <div id="deviceready" class="blink"> 
+                <p class="event listening">Connecting to Device</p> 
+                <p class="event received">Device is Ready</p> 
+            </div>   
+        </div> 
+        <script type="text/javascript" src="phonegap.js"></script> 
+        <script type="text/javascript" src="PushNotification.js"></script> 
+        <script type="text/javascript" src="js/actions.js"></script> 
+        <script type="text/javascript"> 
+        //El registro al servicio de google lo hacemos automáticamente 
+        app.initialize(); 
+        function registrar(){ 
+            var nombre = document.getElementById('name').value; 
+            var email = document.getElementById('email').value; 
+            var regId = document.getElementById('regId').value; 
+            if (regId != "") { 
+                if (nombre != "" && email != "") { 
+                    //Enviamos los datos al servidor php 
+                    document.formulario.submit(); 
+                } 
+                else{alert('Ingrese un nombre y un correo para el registro en la base de datos.')} 
+            } 
+            else 
+                {alert('Esperando el regId del registro en GCM!');} 
+        } 
+        </script> 
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
@@ -37,6 +58,5 @@
 		<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
 		<script type="text/javascript" src="js/API/networkInformation.js"></script>
-		<script type="text/javascript" src="js/actions.js"></script>
-	</body>	
+    </body> 
 </html>
