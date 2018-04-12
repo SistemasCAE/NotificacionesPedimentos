@@ -36,7 +36,7 @@ var app = {
 
                  jQuery.ajax({
         url: 'http://enlinea.cae3076.com/Notificaciones/funciones.php',
-        type:'POST',
+        type:'GET',
         data:'datos='+data.registrationId+'||'+plataforma,
         dataType:'json',
         success:function(response){
