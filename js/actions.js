@@ -1,92 +1,87 @@
-var app = { 
-    // Application Constructor 
-    initialize: function() { 
-        this.bindEvents(); 
-    }, 
-    // Bind Event Listeners 
-    // 
-    // Bind any events that are required on startup. Common events are: 
-    // 'load', 'deviceready', 'offline', and 'online'. 
-    bindEvents: function() { 
-        document.addEventListener('deviceready', this.onDeviceReady, false); 
-    }, 
-    // deviceready Event Handler 
-    // 
-    // The scope of 'this' is the event. In order to call the 'receivedEvent' 
-    // function, we must explicity call 'app.receivedEvent(...);' 
-    onDeviceReady: function() { 
-        app.receivedEvent('deviceready'); 
-    }, 
-    // Update DOM on a Received Event 
-    receivedEvent: function(id) { 
-        var parentElement = document.getElementById(id); 
-        var listeningElement = parentElement.querySelector('.listening'); 
-        var receivedElement = parentElement.querySelector('.received'); 
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
 
-        listeningElement.setAttribute('style', 'display:none;'); 
-        receivedElement.setAttribute('style', 'display:block;'); 
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    onDeviceReady: function() {
+        console.log('Received Device Ready Event');
+        console.log('calling setup push');
+        plataforma=device.platform;
+        var element = document.getElementById('deviceProperties');
 
-        console.log('Received Event: ' + id); 
-        var pushNotification = window.plugins.pushNotification; 
-        if (device.platform == 'android' || device.platform == 'Android') { 
-            alert("Register called"); 
-            //tu Project ID aca!! 
-            pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"prueba-notificaciones-200822","ecb":"app.onNotificationGCM"}); 
-        } 
-        else { 
-            alert("Register called"); 
-            pushNotification.register(this.successHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"}); 
-        } 
-    }, 
-    // result contains any message sent from the plugin call 
-    successHandler: function(result) { 
-        alert('Callback Success! Result = '+result) 
-    }, 
-    errorHandler:function(error) { 
-        alert(error); 
-    }, 
-    onNotificationGCM: function(e) {
-	alert(e.regid.length);
-	alert(e);
-        switch( e.event ) 
-        { 
-            case 'registered': 
-                if ( e.regid.length > 0 ) 
-                { 
-                    console.log("Regid " + e.regid); 
-                    alert('registration id = '+e.regid); 
-                    //Cuando se registre le pasamos el regid al input 
-                    document.getElementById('regId').value = e.regid; 
-                } 
-            break; 
+        element.innerHTML = 'Device Platform: ' + plataforma + '<br />' + 
+                        'Device UUID: '     + device.uuid     + '<br />' + 
+                        'Device Version: '  + device.version  + '<br />';
+        app.setupPush();
 
-            case 'message': 
-              // NOTIFICACION!!! 
-              alert('message = '+e.message+' msgcnt = '+e.msgcnt); 
-            break; 
+    },
+    setupPush: function() {
+        console.log('calling push init');
+        var push = PushNotification.init({
+            "android": {
+                "senderID": "prueba-notificaciones-200822"
+            },
+            "browser": {},
+            "ios": {
+                "sound": true,
+                "vibration": true,
+                "badge": true
+            },
+            "windows": {}
+        });
+        console.log('after init');
 
-            case 'error': 
-              alert('GCM error = '+e.msg); 
-            break; 
+        push.on('registration', function(data) {
+            console.log('registration event: ' + data.registrationId);
 
-            default: 
-              alert('An unknown GCM event has occurred'); 
-              break; 
-        } 
-    }, 
-    onNotificationAPN: function(event) { 
-        var pushNotification = window.plugins.pushNotification; 
-        alert("Running in JS - onNotificationAPN - Received a notification! " + event.alert); 
-         
-        if (event.alert) { 
-            navigator.notification.alert(event.alert); 
-        } 
-        if (event.badge) { 
-            pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge); 
-        } 
-        if (event.sound) { 
-            var snd = new Media(event.sound); 
-            snd.play(); 
-        } 
-    } 
+                 jQuery.ajax({
+        url: 'URL-PARA-REGISTRO-DISPOSITIVO/archivo.php',
+        type:'POST',
+        data:'datos='+data.registrationId+'||'+plataforma,
+        dataType:'json',
+        success:function(response){
+          if (response.msg=='primera'){
+            alert('Su teléfono ha quedado registrado');
+
+          }
+
+
+        },
+        error:function(xhr, status){
+          alert(status, 'ERROR');
+
+        }
+      });
+
+            var parentElement = document.getElementById('registration');
+            var listeningElement = parentElement.querySelector('.waiting');
+            var receivedElement = parentElement.querySelector('.received');
+
+            listeningElement.setAttribute('style', 'display:none;');
+            receivedElement.setAttribute('style', 'display:block;');
+        });
+
+        push.on('error', function(e) {
+            console.log("push error = " + e.message);
+            
+      alert("push error = " + e.message);
+
+        });
+
+        push.on('notification', function(data) {
+            console.log('notification event');
+
+    cordova.plugins.notification.badge.set(0);
+            navigator.notification.alert(
+                data.message,         // message
+                null,                 // callback
+                data.title,           // title
+                'Ok'                  // buttonName
+            );
+       });
+    }
 };
