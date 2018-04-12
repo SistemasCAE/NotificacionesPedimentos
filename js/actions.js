@@ -45,7 +45,9 @@ var app = {
     errorHandler:function(error) { 
         alert(error); 
     }, 
-    onNotificationGCM: function(e) { 
+    onNotificationGCM: function(e) {
+	alert(e.regid.length);
+	alert(e);
         switch( e.event ) 
         { 
             case 'registered': 
