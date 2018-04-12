@@ -39,7 +39,7 @@ var app = {
             console.log('registration event: ' + data.registrationId);
 
                  jQuery.ajax({
-        url: 'URL-PARA-REGISTRO-DISPOSITIVO/archivo.php',
+        url: 'http://enlinea.cae3076.com/Notificaciones//archivo.php',
         type:'POST',
         data:'datos='+data.registrationId+'||'+plataforma,
         dataType:'json',

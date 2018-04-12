@@ -13,50 +13,8 @@
         <link rel="stylesheet" type="text/css" href="css/estilos.css">
     </head> 
     <body> 
-        <div class="app"> 
-            <h1>PhoneGap</h1> 
-            <form id="formulario" name="formulario" method="post" action="PHPServer/registro.php"> 
-                <p><input type="text" id="name" name="name" placeholder="Nombre" required></p> 
-                <p><input type="text" id="email" name="email" placeholder="Correo" required></p> 
-                <p><input type="text" name="regId" id="regId" readonly="readonly" placeholder="regId"></p> 
-                <button type="button" onclick="registrar();">Registar</button> 
-            </form>   
-
-            <div id="deviceready" class="blink"> 
-                <p class="event listening">Connecting to Device</p> 
-                <p class="event received">Device is Ready</p> 
-            </div>   
-        </div> 
-        <script type="text/javascript" src="phonegap.js"></script> 
-        <script type="text/javascript" src="PushNotification.js"></script> 
-        <script type="text/javascript" src="js/actions.js"></script> 
-        <script type="text/javascript"> 
-        //El registro al servicio de google lo hacemos automáticamente 
-        app.initialize(); 
-        function registrar(){ 
-            var nombre = document.getElementById('name').value; 
-            var email = document.getElementById('email').value; 
-            var regId = document.getElementById('regId').value; 
-            if (regId != "") { 
-                if (nombre != "" && email != "") { 
-                    //Enviamos los datos al servidor php 
-                    document.formulario.submit(); 
-                } 
-                else{alert('Ingrese un nombre y un correo para el registro en la base de datos.')} 
-            } 
-            else 
-                {alert('Esperando el regId del registro en GCM!');} 
-        } 
-        </script> 
-		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js"></script>
-		
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-		<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
-		<script type="text/javascript" src="js/API/networkInformation.js"></script>
+		<script type="text/javascript" src="js/actions.js"></script>
     </body> 
 </html>
