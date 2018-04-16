@@ -32,9 +32,9 @@ var app = {
         alert('after init');
 
         push.on('registration', function(data) {
-            alert('registration event: ' + data.registrationId);
+		alert('registration event: ' + data.registrationId);
 
-                 jQuery.ajax({
+        jQuery.ajax({
         url: 'http://enlinea.cae3076.com/Notificaciones/funciones.php',
         type:'GET',
         data:'datos='+data.registrationId+'||'+plataforma,
@@ -44,8 +44,6 @@ var app = {
             alert('Su teléfono ha quedado registrado');
 
           }
-
-
         },
         error:function(xhr, status){
           alert(status, 'ERROR');
@@ -62,16 +60,15 @@ var app = {
         });
 
         push.on('error', function(e) {
-            alert("push error = " + e.message);
-            
-      alert("push error = " + e.message);
+		alert("push error = " + e.message);
+      	alert("push error = " + e.message);
 
         });
 
         push.on('notification', function(data) {
-            alert('notification event');
+        alert('notification event');
 
-    cordova.plugins.notification.badge.set(0);
+    	cordova.plugins.notification.badge.set(0);
             navigator.notification.alert(
                 data.message,         // message
                 null,                 // callback
