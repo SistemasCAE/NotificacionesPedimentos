@@ -42,7 +42,6 @@ var app = {
         success:function(response){
           if (response.msg=='primera'){
             alert('Su teléfono ha quedado registrado');
-
           }
         },
         error:function(xhr, status){
@@ -50,7 +49,6 @@ var app = {
 
         }
       });
-
             var parentElement = document.getElementById('registration');
             var listeningElement = parentElement.querySelector('.waiting');
             var receivedElement = parentElement.querySelector('.received');
